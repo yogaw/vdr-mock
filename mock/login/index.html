@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · SecureVDR</title>
+  <link rel="stylesheet" href="../_shared/base.css?v=5">
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body class="auth-body">
+  <main class="auth-wrap">
+    <div class="card auth-card">
+      <div class="brand-lg"><span class="brand-mark">SV</span>SecureVDR</div>
+      <p class="auth-sub">Confidential document access — authorized users only.</p>
+
+      <div class="demo-chips-label">Demo accounts</div>
+      <div class="demo-chips">
+        <button type="button" class="chip" data-email="admin@vdr.test" data-password="admin123">Admin</button>
+        <button type="button" class="chip" data-email="viewer@vdr.test" data-password="viewer123">Viewer</button>
+        <button type="button" class="chip" data-email="expired@vdr.test" data-password="viewer123">Expired viewer</button>
+      </div>
+
+      <form id="login-form" novalidate>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" id="email" autocomplete="username" placeholder="you@company.com" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" required>
+        </label>
+        <div class="form-error" id="form-error" hidden></div>
+        <button class="btn btn-primary btn-block" type="submit" id="login-btn">Sign in</button>
+      </form>
+
+      <p class="auth-foot">UI mock <span id="mock-ver"></span> — sessions and permissions are simulated. <a href="#" id="reset-data">Reset demo data</a></p>
+    </div>
+  </main>
+
+  <script src="../_shared/mock-data.js?v=5"></script>
+  <script src="../_shared/mock-helpers.js?v=5"></script>
+  <script src="script.js?v=5"></script>
+</body>
+</html>

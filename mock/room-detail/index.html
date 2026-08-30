@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Room · SecureVDR</title>
+  <link rel="stylesheet" href="../_shared/base.css?v=5">
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+  <header class="topbar" id="vdr-topbar"></header>
+
+  <main class="container">
+    <div id="error-state" class="card" hidden>
+      <div class="state-block">
+        <div class="ic" data-icon="blocked"></div>
+        <h2>Room not found</h2>
+        <p>This data room doesn't exist, or your account doesn't have access to it.</p>
+        <a class="btn btn-secondary" href="../rooms/index.html">Back to rooms</a>
+      </div>
+    </div>
+
+    <div id="room-layout" hidden>
+      <div class="breadcrumb" id="breadcrumb"></div>
+
+      <div class="page-head">
+        <div>
+          <h1 id="room-name">Data room</h1>
+          <div class="sub" id="room-sub"></div>
+        </div>
+        <div class="actions" id="room-badges"></div>
+      </div>
+
+      <div class="room-layout-grid">
+        <aside class="card folder-panel" id="folder-panel"></aside>
+        <section class="card doc-panel">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Document</th>
+                <th class="col-updated">Updated</th>
+                <th class="col-size">Size</th>
+                <th class="col-open"></th>
+              </tr>
+            </thead>
+            <tbody id="doc-rows"></tbody>
+          </table>
+          <div id="folder-empty" class="state-block" hidden>
+            <div class="ic" data-icon="folder"></div>
+            <h2>No documents here</h2>
+            <p>This folder doesn't contain any documents yet.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="../_shared/mock-data.js?v=5"></script>
+  <script src="../_shared/mock-helpers.js?v=5"></script>
+  <script src="script.js?v=5"></script>
+</body>
+</html>

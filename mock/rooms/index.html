@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Rooms · SecureVDR</title>
+  <link rel="stylesheet" href="../_shared/base.css?v=5">
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+  <header class="topbar" id="vdr-topbar"></header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1 id="greeting">Data rooms</h1>
+        <div class="sub" id="greeting-sub"></div>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="rooms-grid"></div>
+
+    <div class="card" id="empty-state" hidden>
+      <div class="state-block">
+        <div class="ic" data-icon="lock"></div>
+        <h2>No data rooms available</h2>
+        <p id="empty-msg">
+          Your account doesn't currently have access to any data room.
+          Your administrator will grant access when a room is shared with you.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="../_shared/mock-data.js?v=5"></script>
+  <script src="../_shared/mock-helpers.js?v=5"></script>
+  <script src="script.js?v=5"></script>
+</body>
+</html>

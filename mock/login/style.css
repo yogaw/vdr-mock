@@ -1,0 +1,13 @@
+/* login — page-specific only; shared tokens live in _shared/base.css */
+
+.auth-card .brand-lg { justify-content: center; }
+
+#login-form .btn-block { margin-top: 4px; }
+
+/* subtle invalid-entry shake on failed login */
+.auth-card.shake { animation: shake 0.3s ease; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}

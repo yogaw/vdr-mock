@@ -1,0 +1,9 @@
+/* diag — page-specific only */
+
+.diag-table td:first-child { font-weight: 650; width: 260px; }
+.diag-table td { background: var(--surface-2); }
+.diag-table td:last-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; word-break: break-all; }
+
+.diag-note { color: var(--text-faint); font-size: 12px; margin-top: 14px; }
+
+.badge-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }

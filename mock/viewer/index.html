@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Viewer · SecureVDR</title>
+  <link rel="stylesheet" href="../_shared/base.css?v=5">
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body class="viewer-body">
+  <header class="topbar" id="vdr-topbar"></header>
+
+  <div id="viewer-shell" hidden>
+    <div class="doc-head">
+      <a class="btn btn-ghost btn-sm" href="#" id="back-link">Back to room</a>
+      <div class="doc-id">
+        <h1 id="doc-name">Document</h1>
+        <div class="doc-meta" id="doc-meta"></div>
+      </div>
+      <div class="doc-head-right">
+        <span class="badge badge-info" id="doc-room-badge"></span>
+        <span class="badge badge-warn">View-only</span>
+        <a class="btn btn-secondary btn-sm" id="open-tab" target="_blank" rel="noopener" hidden>Open in new tab</a>
+        <div class="viewer-chip" id="viewer-chip"></div>
+      </div>
+    </div>
+
+    <div class="doc-stage">
+      <div id="doc-loading" class="stage-note">
+        <span class="spinner"></span>
+        <p>Authorizing and loading document…</p>
+      </div>
+      <div id="doc-content" hidden></div>
+      <div id="preview-none" class="stage-note" hidden>
+        <div class="ic" data-icon="document"></div>
+        <h2>Preview not available</h2>
+        <p id="preview-none-msg">This file type can't be previewed yet. Contact your administrator if you need access to the content.</p>
+        <p class="preview-debug" id="preview-debug"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="denied-state" class="container" hidden>
+    <div class="card">
+      <div class="state-block">
+        <div class="ic" id="denied-ic" data-icon="blocked"></div>
+        <h2 id="denied-title">Access denied</h2>
+        <p id="denied-msg">You don't have access to this document.</p>
+        <a class="btn btn-secondary" href="../rooms/index.html">Back to rooms</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../_shared/mock-data.js?v=5"></script>
+  <script src="../_shared/mock-helpers.js?v=5"></script>
+  <script src="script.js?v=5"></script>
+</body>
+</html>
