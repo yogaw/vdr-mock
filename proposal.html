@@ -103,6 +103,19 @@
   .tier.pro li::before { background: var(--accent); }
   .tier .rec { position: absolute; top: -13px; left: 24px; background: var(--accent); color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; border-radius: 999px; padding: 4px 12px; }
 
+  /* ---------- pricing detail tables ---------- */
+  .subblock { margin-top: 38px; }
+  .subblock h3 { font-size: 17px; letter-spacing: -.01em; margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13.5px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  th, td { border-bottom: 1px solid var(--border); padding: 11px 16px; text-align: left; }
+  thead th { background: var(--bg); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  tbody tr:last-child td { border-bottom: none; }
+  th.fee { text-align: right; }
+  td.fee { text-align: right; font-weight: 650; white-space: nowrap; }
+  .inc-note { font-size: 12.5px; color: var(--muted); margin-top: 10px; max-width: 680px; }
+  .note { margin-top: 16px; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; background: #fff; padding: 14px 18px; font-size: 12.5px; color: var(--muted); }
+  .note b { color: var(--ink); display: block; margin-bottom: 3px; font-size: 13px; }
+
   /* ---------- platform ---------- */
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .pc { border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: #fff; }
@@ -187,7 +200,7 @@
     </div>
     <div class="price-chip">
       <span class="pv">Rp85,000,000</span>
-      <span class="pl">Professional VDR, all-in Year 1</span>
+      <span class="pl">Implementation</span>
     </div>
     <p class="hero-meta">Prepared by Yoga Wigardo · 31 August 2026 · Valid 30 days · yoga@temanbizz.digital · +62 812-8088-0228</p>
   </div>
@@ -238,7 +251,7 @@
       <div class="fc">
         <span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 5h11l-2-2"/><path d="M8 5l-2-2" opacity="0"/><rect x="8" y="3" width="12" height="8" rx="1.5"/><path d="M4 13h12v6H4z"/></svg></span>
         <h3>Audit Trail</h3>
-        <p>Logins, opens, downloads, and permission changes recorded with user, timestamp, and IP address.</p>
+        <p>Logins, opens, downloads, and permission changes recorded with user and timestamp.</p>
       </div>
     </div>
     <div class="strip">
@@ -257,7 +270,7 @@
       <div class="price">
         <div class="pl">Year 1</div>
         <div class="pv">Rp85,000,000</div>
-        <div class="pm">all-in</div>
+        <div class="pm">excludes monthly cloud subscription</div>
       </div>
       <div class="inc">
         <div class="t">Everything included</div>
@@ -274,7 +287,7 @@
           <li>Basic Q&amp;A module</li>
           <li>Custom branding &amp; custom domain</li>
           <li>Managed SSL</li>
-          <li>Google Cloud production deployment for 12 months</li>
+          <li>Google Cloud production deployment</li>
           <li>UAT, guidelines &amp; onboarding</li>
           <li>3 months post-launch support</li>
         </ul>
@@ -288,7 +301,7 @@
   <div class="wrap">
     <div class="sl">04 · Package Options</div>
     <h2>Two packages, one commercial model</h2>
-    <p class="sub">Both packages include the secure viewer, watermark, download control, audit trail, custom domain with SSL, and 12 months of Google Cloud hosting.</p>
+    <p class="sub">Both packages include production deployment on Google Cloud. Managed Cloud &amp; Platform Operations are provided under the applicable monthly plan.</p>
     <div class="tiers">
       <div class="tier pro">
         <span class="rec">Recommended</span>
@@ -317,6 +330,41 @@
           <li>6 months priority support</li>
         </ul>
         <a class="btn btn-s" href="mailto:yoga@temanbizz.digital?subject=VDR%20Enterprise%20Package">Enquire</a>
+      </div>
+    </div>
+
+    <div class="subblock">
+      <h3>Monthly Cloud Subscription</h3>
+      <table>
+        <thead>
+          <tr><th>Package</th><th class="fee">Monthly Fee</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Professional</td><td class="fee">Rp3,500,000 / month</td></tr>
+          <tr><td>Enterprise</td><td class="fee">Rp5,500,000 / month</td></tr>
+        </tbody>
+      </table>
+      <p class="inc-note">Includes managed cloud hosting, database, secure document storage, monitoring, backup, SSL, and standard platform operations within the included capacity.</p>
+    </div>
+
+    <div class="subblock">
+      <h3>Additional Services</h3>
+      <table>
+        <thead>
+          <tr><th>Additional Service</th><th class="fee">Fee</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Additional Admin</td><td class="fee">Rp875,000 / month</td></tr>
+          <tr><td>+100 GB Storage</td><td class="fee">Rp500,000 / month</td></tr>
+          <tr><td>+250 GB Storage</td><td class="fee">Rp1,050,000 / month</td></tr>
+          <tr><td>+500 GB Storage</td><td class="fee">Rp1,850,000 / month</td></tr>
+          <tr><td>+1 TB Storage</td><td class="fee">Rp3,250,000 / month</td></tr>
+          <tr><td>Additional Consulting &amp; Customization</td><td class="fee">Rp900,000 / man-hour</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <b>For Additional Consulting &amp; Customization</b>
+        Applicable to requirements outside the agreed implementation scope. Upon receiving a request, we will review the requirement and provide an estimated total man-hour effort for confirmation before the work commences. Any material change to the estimated effort will be communicated and agreed prior to proceeding.
       </div>
     </div>
   </div>
