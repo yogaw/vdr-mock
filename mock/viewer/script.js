@@ -107,8 +107,8 @@
     var host = document.getElementById('doc-content');
     host.innerHTML = doc.preview.kind === 'sheet' ? sheetHtml(doc) : docHtml(doc);
     host.hidden = false;
-    if (doc.file && doc.type === 'pdf') {
-      // Real PDF exists — offer full fidelity alongside the in-app pages.
+    if (doc.file) {
+      // Real file exists — serve it directly (PDFs display, office files download).
       var open = document.getElementById('open-tab');
       open.href = doc.file;
       open.hidden = false;

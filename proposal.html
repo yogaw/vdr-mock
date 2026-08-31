@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Professional VDR · Secure. Controlled. Predictable. · Yoga Wigardo</title>
+<meta name="description" content="A purpose-built Virtual Data Room for sensitive transactions, without the recurring seat economics of conventional VDR platforms.">
+<style>
+  :root {
+    --ink: #16202e;
+    --muted: #5b6779;
+    --faint: #8a94a4;
+    --accent: #1f4fd8;
+    --accent-dark: #1a43b8;
+    --accent-soft: #e8eefc;
+    --border: #dfe5ec;
+    --bg: #f6f8fa;
+    --good: #157f3d;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); color: var(--ink); background: #fff; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- topbar ---------- */
+  .topbar { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .topbar .in { max-width: 1020px; margin: 0 auto; padding: 0 24px; height: 58px; display: flex; align-items: center; gap: 22px; }
+  .brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 15px; color: var(--ink); text-decoration: none; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; }
+  .nav { display: flex; gap: 4px; margin-left: 8px; }
+  .nav a { padding: 6px 11px; border-radius: 8px; font-size: 13px; font-weight: 550; color: var(--muted); text-decoration: none; }
+  .nav a:hover { color: var(--ink); background: var(--bg); }
+  .topbar .sp { flex: 1; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 9px; font: 650 13.5px var(--font); text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background .12s ease; }
+  .btn-p { background: var(--accent); color: #fff; }
+  .btn-p:hover { background: var(--accent-dark); }
+  .btn-s { background: #fff; color: var(--ink); border-color: #c4cedb; }
+  .btn-s:hover { background: var(--bg); }
+  .btn-sm { padding: 7px 14px; font-size: 12.5px; }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 76px 0 64px; background: linear-gradient(180deg, #eef2f8 0%, #fff 100%); border-bottom: 1px solid var(--border); }
+  .kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 5px 14px; margin-bottom: 18px; }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.12; letter-spacing: -.02em; max-width: 720px; }
+  .hero p.lead { margin: 18px 0 0; font-size: 17px; color: var(--muted); max-width: 640px; }
+  .hero-cta { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .price-chip { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 26px; padding: 12px 18px; border: 1px solid #c9d7f5; background: var(--accent-soft); border-radius: 11px; }
+  .price-chip .pv { font-size: 21px; font-weight: 750; color: var(--accent-dark); }
+  .price-chip .pl { font-size: 12.5px; color: var(--muted); }
+  .hero-meta { margin-top: 22px; font-size: 12.5px; color: var(--faint); }
+
+  /* ---------- sections ---------- */
+  section { padding: 64px 0; }
+  section.alt { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .sl { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  h2 { font-size: 26px; letter-spacing: -.01em; margin-bottom: 10px; }
+  .sub { color: var(--muted); max-width: 640px; margin-bottom: 30px; }
+
+  .two-col { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: start; }
+  .two-col p { color: var(--muted); }
+  .two-col p b { color: var(--ink); }
+  .pains { list-style: none; border: 1px solid var(--border); border-radius: 12px; background: #fff; padding: 8px; }
+  .pains li { padding: 11px 14px; font-size: 13.5px; color: var(--muted); border-radius: 8px; }
+  .pains li + li { border-top: 1px solid var(--border); }
+  .pains li b { color: var(--ink); font-weight: 650; }
+
+  /* ---------- feature cards ---------- */
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .fc { border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: #fff; }
+  .fc h3 { font-size: 15px; margin: 10px 0 6px; }
+  .fc p { font-size: 13px; color: var(--muted); }
+  .fic { width: 36px; height: 36px; border-radius: 9px; background: var(--accent-soft); color: var(--accent-dark); display: inline-flex; align-items: center; justify-content: center; }
+  .fic svg { width: 19px; height: 19px; }
+  .strip { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .strip span { font-size: 12px; font-weight: 550; color: var(--muted); border: 1px solid var(--border); background: #fff; border-radius: 999px; padding: 5px 13px; }
+
+  /* ---------- package band ---------- */
+  .band { display: flex; border-radius: 14px; overflow: hidden; border: 1px solid var(--accent); background: #fff; }
+  .band .price { flex: none; width: 270px; background: var(--accent); color: #fff; padding: 26px; }
+  .band .price .pl { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+  .band .price .pv { font-size: 30px; font-weight: 750; margin-top: 6px; letter-spacing: -.01em; }
+  .band .price .pm { font-size: 13px; opacity: .85; margin-top: 2px; }
+  .band .inc { flex: 1; background: var(--accent-soft); padding: 22px 26px; }
+  .band .inc .t { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 12px; }
+  .band .inc ul { list-style: none; columns: 3; column-gap: 22px; font-size: 13px; }
+  .band .inc li { break-inside: avoid; padding-left: 15px; position: relative; margin-bottom: 6px; }
+  .band .inc li::before { content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); }
+
+  /* ---------- pricing cards ---------- */
+  .tiers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: stretch; }
+  .tier { border: 1px solid var(--border); border-radius: 14px; background: #fff; padding: 24px; display: flex; flex-direction: column; }
+  .tier .tn { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .tier .tp { font-size: 26px; font-weight: 750; margin-top: 8px; }
+  .tier .tm { font-size: 12px; color: var(--faint); margin-top: 2px; }
+  .tier ul { list-style: none; margin: 18px 0 22px; flex: 1; }
+  .tier li { font-size: 13px; color: var(--muted); padding: 5px 0 5px 16px; position: relative; }
+  .tier li::before { content: ""; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 2px; background: #c4cedb; }
+  .tier.pro { border: 2px solid var(--accent); box-shadow: 0 12px 30px rgba(31,79,216,.12); position: relative; }
+  .tier.pro .tn { color: var(--accent); }
+  .tier.pro li::before { background: var(--accent); }
+  .tier .rec { position: absolute; top: -13px; left: 24px; background: var(--accent); color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; border-radius: 999px; padding: 4px 12px; }
+
+  /* ---------- platform ---------- */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pc { border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: #fff; }
+  .pc h3 { font-size: 14.5px; margin-bottom: 6px; }
+  .pc p { font-size: 13px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .chips span { font-size: 12px; font-weight: 600; color: var(--muted); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px; }
+
+  /* ---------- roadmap ---------- */
+  .grid4b { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .rm { background: #fff; border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: 0 0 12px 12px; padding: 16px 18px; }
+  .rm h3 { font-size: 13.5px; margin-bottom: 8px; }
+  .rm ul { list-style: none; }
+  .rm li { font-size: 12.5px; color: var(--muted); padding: 2.5px 0; }
+
+  /* ---------- steps + cta ---------- */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 34px; }
+  .step { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; background: #fff; }
+  .step .n { font-size: 12px; font-weight: 750; color: var(--accent); }
+  .step h3 { font-size: 14.5px; margin: 4px 0 3px; }
+  .step p { font-size: 13px; color: var(--muted); }
+  .step p b { color: var(--accent-dark); font-weight: 650; }
+  .cta-band { background: var(--accent); border-radius: 16px; color: #fff; padding: 40px; display: flex; align-items: center; justify-content: space-between; gap: 26px; flex-wrap: wrap; }
+  .cta-band h2 { color: #fff; font-size: 24px; }
+  .cta-band p { color: rgba(255,255,255,.82); margin-top: 6px; max-width: 480px; }
+  .cta-band .btn-w { background: #fff; color: var(--accent-dark); }
+  .cta-band .btn-w:hover { background: var(--accent-soft); }
+  .cta-band .btn-o { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
+  .cta-band .btn-o:hover { background: rgba(255,255,255,.1); }
+
+  /* ---------- contact / footer ---------- */
+  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cc { border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; background: #fff; }
+  .cc .l { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+  .cc a.big { display: block; font-size: 15.5px; font-weight: 650; text-decoration: none; margin: 3px 0; }
+  .cc a.big:hover { text-decoration: underline; }
+  footer { border-top: 1px solid var(--border); margin-top: 70px; padding: 26px 0 40px; }
+  footer .in { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .grid4 { grid-template-columns: 1fr 1fr; }
+    .grid4b, .steps { grid-template-columns: 1fr 1fr; }
+    .two-col, .grid2, .contact { grid-template-columns: 1fr; }
+    .tiers { grid-template-columns: 1fr; }
+    .band { flex-direction: column; }
+    .band .price { width: auto; }
+    .band .inc ul { columns: 2; }
+    .nav { display: none; }
+  }
+  @media (max-width: 560px) {
+    .grid4, .grid4b, .steps { grid-template-columns: 1fr; }
+    .band .inc ul { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="in">
+    <a class="brand" href="#"><span class="mark">SV</span>SecureVDR</a>
+    <div class="nav">
+      <a href="#challenge">Challenge</a>
+      <a href="#solution">Solution</a>
+      <a href="#packages">Packages</a>
+      <a href="#platform">Platform</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="sp"></div>
+    <a class="btn btn-p btn-sm" href="mock/login/index.html">Try the demo</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">Proposal · Professional VDR Implementation</span>
+    <h1>Secure. Controlled. Predictable.</h1>
+    <p class="lead">A purpose-built Virtual Data Room for sensitive transactions such as fundraising, due diligence, M&amp;A, audits, and legal review, with no recurring seat economics from conventional VDR platforms.</p>
+    <div class="hero-cta">
+      <a class="btn btn-p" href="#packages">View packages</a>
+      <a class="btn btn-s" href="mock/login/index.html">Try the live demo</a>
+    </div>
+    <div class="price-chip">
+      <span class="pv">Rp85,000,000</span>
+      <span class="pl">Professional VDR, all-in Year 1</span>
+    </div>
+    <p class="hero-meta">Prepared by Yoga Wigardo · 31 August 2026 · Valid 30 days · yoga@temanbizz.digital · +62 812-8088-0228</p>
+  </div>
+</header>
+
+<!-- ============ CHALLENGE ============ -->
+<section id="challenge">
+  <div class="wrap">
+    <div class="sl">01 · The Challenge</div>
+    <h2>Confidential sharing is either uncontrolled or overpriced</h2>
+    <div class="two-col">
+      <div>
+        <p>Today, confidential documents travel through <b>email threads, generic drive links, and manually controlled folders</b>. Once a document leaves, control is lost: there is no view-only mode, no per-viewer traceability, and no way to revoke access in the middle of a transaction.</p>
+        <p style="margin-top:12px">Conventional enterprise VDR platforms restore that control, but their commercial model works against you: a large one-time setup and add-on fees for storage, support, and retention that compound over the life of every deal.</p>
+      </div>
+      <ul class="pains">
+        <li><b>No view-only mode:</b> documents, once shared, can be forwarded and downloaded freely</li>
+        <li><b>No traceability</b> of who viewed what, and when</li>
+        <li><b>No mid-deal revocation:</b> access cannot be withdrawn once granted</li>
+        <li><b>Add-on creep:</b> storage, support, and retention fees stack on top</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section id="solution" class="alt">
+  <div class="wrap">
+    <div class="sl">02 · What We Deliver</div>
+    <h2>Purpose-built controls, on Google Cloud</h2>
+    <p class="sub">Four outcomes the platform is engineered around, not configuration workarounds on a generic tool.</p>
+    <div class="grid4">
+      <div class="fc">
+        <span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <h3>Secure Viewing</h3>
+        <p>Documents open in a controlled in-browser viewer. Originals stay in private storage and are never exposed through public URLs.</p>
+      </div>
+      <div class="fc">
+        <span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V7z"/><path d="M9.5 12l1.8 1.8 3.5-3.5"/></svg></span>
+        <h3>Dynamic Watermark</h3>
+        <p>Every view is stamped with viewer identity, project, and live timestamp for deterrence, traceability, and accountability.</p>
+      </div>
+      <div class="fc">
+        <span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></span>
+        <h3>Download Control</h3>
+        <p>View-only by default; download enabled per room or document and enforced server-side on every request.</p>
+      </div>
+      <div class="fc">
+        <span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 5h11l-2-2"/><path d="M8 5l-2-2" opacity="0"/><rect x="8" y="3" width="12" height="8" rx="1.5"/><path d="M4 13h12v6H4z"/></svg></span>
+        <h3>Audit Trail</h3>
+        <p>Logins, opens, downloads, and permission changes recorded with user, timestamp, and IP address.</p>
+      </div>
+    </div>
+    <div class="strip">
+      <span>Access expiration</span><span>Immediate revocation</span><span>Bulk upload</span><span>Version replacement</span><span>Folder organization</span><span>Large-file progressive viewing</span><span>Multiple data rooms</span><span>Basic Q&amp;A</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECOMMENDED PACKAGE ============ -->
+<section id="package">
+  <div class="wrap">
+    <div class="sl">03 · Recommended Package</div>
+    <h2>Professional VDR</h2>
+    <p class="sub">One predictable investment. No mandatory per-viewer licensing within the included capacity.</p>
+    <div class="band">
+      <div class="price">
+        <div class="pl">Year 1</div>
+        <div class="pv">Rp85,000,000</div>
+        <div class="pm">all-in</div>
+      </div>
+      <div class="inc">
+        <div class="t">Everything included</div>
+        <ul>
+          <li>3 admin accounts</li>
+          <li>External viewers, no per-seat fee (fair use)</li>
+          <li>100 GB secure storage</li>
+          <li>Multiple data rooms</li>
+          <li>Secure browser document viewer</li>
+          <li>Dynamic watermark</li>
+          <li>Download control</li>
+          <li>Complete audit trail</li>
+          <li>Access expiration &amp; instant revocation</li>
+          <li>Basic Q&amp;A module</li>
+          <li>Custom branding &amp; custom domain</li>
+          <li>Managed SSL</li>
+          <li>Google Cloud production deployment for 12 months</li>
+          <li>UAT, guidelines &amp; onboarding</li>
+          <li>3 months post-launch support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PACKAGES ============ -->
+<section id="packages" class="alt">
+  <div class="wrap">
+    <div class="sl">04 · Package Options</div>
+    <h2>Two packages, one commercial model</h2>
+    <p class="sub">Both packages include the secure viewer, watermark, download control, audit trail, custom domain with SSL, and 12 months of Google Cloud hosting.</p>
+    <div class="tiers">
+      <div class="tier pro">
+        <span class="rec">Recommended</span>
+        <div class="tn">Professional</div>
+        <div class="tp">Rp85,000,000</div>
+        <div class="tm">Year 1</div>
+        <ul>
+          <li>3 admin accounts</li>
+          <li>External viewers, no per-seat fee (fair use)</li>
+          <li>100 GB secure storage · multiple data rooms</li>
+          <li>Basic Q&amp;A module</li>
+          <li>Custom branding</li>
+          <li>3 months post-launch support</li>
+        </ul>
+        <a class="btn btn-p" href="mailto:yoga@temanbizz.digital?subject=VDR%20Professional%20Package">Select Professional</a>
+      </div>
+      <div class="tier">
+        <div class="tn">Enterprise</div>
+        <div class="tp">Rp120,000,000</div>
+        <div class="tm">Year 1</div>
+        <ul>
+          <li>5 admin accounts</li>
+          <li>External viewers, no per-seat fee (fair use)</li>
+          <li>500 GB secure storage</li>
+          <li>Advanced Q&amp;A &amp; branding</li>
+          <li>6 months priority support</li>
+        </ul>
+        <a class="btn btn-s" href="mailto:yoga@temanbizz.digital?subject=VDR%20Enterprise%20Package">Enquire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLATFORM ============ -->
+<section id="platform" class="alt">
+  <div class="wrap">
+    <div class="sl">05 · Platform</div>
+    <h2>Production-grade, leanly built</h2>
+    <p class="sub">Production discipline without overengineered infrastructure, sized for the transaction and ready to grow.</p>
+    <div class="grid2">
+      <div class="pc"><h3>Google Cloud architecture</h3><p>Cloud Run, Cloud SQL (PostgreSQL), Cloud Storage, Identity Platform, Secret Manager, and Cloud Logging, with managed HTTPS throughout.</p></div>
+      <div class="pc"><h3>Documents never public</h3><p>Private object storage, short-lived signed access, and server-side authorization evaluated on every request. Originals are exposed only when download is explicitly granted.</p></div>
+      <div class="pc" style="grid-column: 1 / -1;"><h3>Built for real files</h3><p>Direct-to-storage resumable uploads, progressive in-app viewing, PDF up to 500 MB, and automatic office-to-viewer conversion for DOCX, XLSX, and PPTX.</p></div>
+    </div>
+    <div class="chips">
+      <span>Cloud Run</span><span>Cloud SQL PostgreSQL</span><span>Cloud Storage</span><span>Identity Platform</span><span>Secret Manager</span><span>Cloud Logging</span><span>Managed SSL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="sl">06 · Roadmap</div>
+    <h2>A foundation that grows with you</h2>
+    <p class="sub">The platform is designed to evolve from a focused transaction environment into a broader enterprise VDR capability.</p>
+    <div class="grid4b">
+      <div class="rm"><h3>Security</h3><ul><li>Session restrictions</li><li>Retention policies</li></ul></div>
+      <div class="rm"><h3>Collaboration</h3><ul><li>Document request lists</li><li>User roles</li></ul></div>
+      <div class="rm"><h3>Enterprise</h3><ul><li>White label ready (with terms &amp; condition)</li><li>Data residency</li><li>Multi-region DR</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT STEPS ============ -->
+<section id="next" class="alt">
+  <div class="wrap">
+    <div class="sl">07 · Next Steps</div>
+    <h2>From confirmation to go-live</h2>
+    <p class="sub">You can try the product directly below, or contact me to discuss scope.</p>
+    <div class="steps">
+      <div class="step"><span class="n">01</span><h3>Confirm package</h3><p>Package selection and project scope agreement.</p></div>
+      <div class="step"><span class="n">02</span><h3>Kickoff</h3><p>Configuration, branding, and data room setup.</p></div>
+      <div class="step"><span class="n">03</span><h3>UAT</h3><p>User acceptance testing and guidelines. <b>By 2 September 2026</b></p></div>
+      <div class="step"><span class="n">04</span><h3>Go live</h3><p>Launch with post-launch support. <b>By 3 September 2026</b></p></div>
+    </div>
+    <div class="cta-band">
+      <div>
+        <p>Confirm a package, or try the product directly in your browser, including the secure viewer, watermarking, and audit trail. Demo accounts are provided on the login page.</p>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn btn-w" href="mock/login/index.html">Try the product</a>
+        <a class="btn btn-o" href="mailto:yoga@temanbizz.digital?subject=VDR%20Proposal">Email me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sl">08 · Contact</div>
+    <h2>Prepared by Yoga Wigardo</h2>
+    <p class="sub">Proposal valid for 30 days from 31 August 2026.</p>
+    <div class="contact">
+      <div class="cc">
+        <div class="l">Email</div>
+        <a class="big" href="mailto:yoga@temanbizz.digital">yoga@temanbizz.digital</a>
+      </div>
+      <div class="cc">
+        <div class="l">Phone</div>
+        <a class="big" href="tel:+6281280880228">+62 812-8088-0228</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap in">
+    <div>Professional VDR Proposal · SecureVDR</div>
+    <div>© 2026 Yoga Wigardo · yoga@temanbizz.digital · +62 812-8088-0228</div>
+  </div>
+</footer>
+
+</body>
+</html>

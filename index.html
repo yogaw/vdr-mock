@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SecureVDR — Virtual Data Room Project</title>
+<style>
+  :root {
+    --ink: #16202e;
+    --muted: #5b6779;
+    --faint: #8a94a4;
+    --accent: #1f4fd8;
+    --accent-dark: #1a43b8;
+    --accent-soft: #e8eefc;
+    --border: #dfe5ec;
+    --bg: #f6f8fa;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); color: var(--ink); background: linear-gradient(180deg, #eef2f8 0%, var(--bg) 260px); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 48px 22px 60px; }
+
+  /* ---------- header ---------- */
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .mark { width: 42px; height: 42px; border-radius: 10px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; }
+  .brand h1 { font-size: 21px; letter-spacing: -.01em; }
+  .brand .sub { color: var(--muted); font-size: 12.5px; margin-top: 1px; }
+  .tagline { margin: 18px 0 6px; font-size: 15px; font-weight: 650; color: var(--accent-dark); }
+  .intro { color: var(--muted); font-size: 13px; max-width: 640px; }
+
+  /* ---------- primary cards ---------- */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 26px; }
+  .card { display: block; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 22px; text-decoration: none; color: var(--ink); box-shadow: 0 1px 2px rgba(22,32,46,.04), 0 6px 18px rgba(22,32,46,.05); transition: border-color .12s ease, transform .12s ease; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card .k { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .card h2 { font-size: 17px; margin-bottom: 6px; }
+  .card p { color: var(--muted); font-size: 12.5px; }
+  .card .go { margin-top: 14px; font-size: 12.5px; font-weight: 650; color: var(--accent); }
+  .hint { margin-top: 12px; border-top: 1px dashed var(--border); padding-top: 10px; font-size: 11px; color: var(--faint); }
+  .hint b { color: var(--muted); font-weight: 650; }
+
+  /* ---------- documents ---------- */
+  .docs { margin-top: 30px; }
+  .docs .sl { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 12.5px; }
+  th, td { border-bottom: 1px solid var(--border); padding: 9px 14px; text-align: left; }
+  tr:last-child td { border-bottom: none; }
+  thead th { background: var(--bg); font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+  td.n { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: var(--accent); width: 240px; }
+  td.n a { color: var(--accent); text-decoration: none; }
+  td.n a:hover { text-decoration: underline; }
+  td.d { color: var(--muted); }
+
+  footer { margin-top: 34px; border-top: 2px solid var(--ink); padding-top: 12px; display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; }
+  footer .who { font-weight: 700; font-size: 13px; }
+  footer .cnt { color: var(--muted); font-size: 12px; }
+
+  @media (max-width: 700px) {
+    .cards { grid-template-columns: 1fr; }
+    td.n { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <span class="mark">SV</span>
+      <div>
+        <h1>SecureVDR</h1>
+        <div class="sub">Virtual Data Room — project hub</div>
+      </div>
+    </div>
+    <p class="tagline">Secure. Controlled. Predictable.</p>
+    <p class="intro">A purpose-built Virtual Data Room for sensitive transactions — fundraising, due diligence, M&amp;A, audits, and legal review. This page is the single entry point to the commercial proposal and the interactive product demo.</p>
+  </header>
+
+  <div class="cards">
+    <a class="card" href="proposal.html">
+      <span class="k">Commercial</span>
+      <h2>Client Proposal — one page</h2>
+      <p>Professional VDR implementation, Rp85,000,000 all-in Year 1. Package comparison, commercial model, and platform summary — ready to present, print, or save as PDF.</p>
+      <div class="go">Open proposal</div>
+    </a>
+    <a class="card" href="mock/login/index.html">
+      <span class="k">Product</span>
+      <h2>Interactive Demo</h2>
+      <p>Working UI mock: sign in, browse granted data rooms, open documents in the secure viewer — spreadsheet and document previews, access expiry, and audit-ready event logging.</p>
+      <div class="go">Launch demo</div>
+      <div class="hint">
+        <b>Demo accounts</b> — admin@vdr.test / admin123 · viewer@vdr.test / viewer123 · expired@vdr.test / viewer123<br>
+        <a href="mock/diag/index.html" style="color:inherit">Diagnostics page</a> if anything looks off.
+      </div>
+    </a>
+  </div>
+
+  <div class="docs">
+    <div class="sl">Project Documents</div>
+    <table>
+      <thead>
+        <tr><th>File</th><th>Contents</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="n"><a href="OBJECTIVES.md">OBJECTIVES.md</a></td><td class="d">MVP objectives, feature scope, permission model, security behavior</td></tr>
+        <tr><td class="n"><a href="PRD.md">PRD.md</a></td><td class="d">Product requirements — functional and non-functional, acceptance criteria</td></tr>
+        <tr><td class="n"><a href="BACKLOG.md">BACKLOG.md</a></td><td class="d">Epics, stories, and iteration slices with requirement traceability</td></tr>
+        <tr><td class="n"><a href="04.%20MOCK-BRIEF.md">04. MOCK-BRIEF.md</a></td><td class="d">Mock-phase conventions — structure, simulated behavior, page inventory</td></tr>
+        <tr><td class="n"><a href="proposal_knowledge.md">proposal_knowledge.md</a></td><td class="d">Knowledge base — product, architecture, capacity, and commercial positioning</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <div class="who">Yoga Wigardo</div>
+    <div class="cnt">yoga@temanbizz.digital · yoga@azuralabs.id · +62 812-8088-0228</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
