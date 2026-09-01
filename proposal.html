@@ -47,9 +47,6 @@
   h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.12; letter-spacing: -.02em; max-width: 720px; }
   .hero p.lead { margin: 18px 0 0; font-size: 17px; color: var(--muted); max-width: 640px; }
   .hero-cta { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
-  .price-chip { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 26px; padding: 12px 18px; border: 1px solid #c9d7f5; background: var(--accent-soft); border-radius: 11px; }
-  .price-chip .pv { font-size: 21px; font-weight: 750; color: var(--accent-dark); }
-  .price-chip .pl { font-size: 12.5px; color: var(--muted); }
   .hero-meta { margin-top: 22px; font-size: 12.5px; color: var(--faint); }
 
   /* ---------- sections ---------- */
@@ -100,6 +97,7 @@
   tbody tr:last-child td { border-bottom: none; }
   th.fee { text-align: right; }
   td.fee { text-align: right; font-weight: 650; white-space: nowrap; }
+  tr.grp td { background: var(--bg); font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
   .inc-note { font-size: 12.5px; color: var(--muted); margin-top: 10px; max-width: 680px; }
   .note { margin-top: 16px; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; background: #fff; padding: 14px 18px; font-size: 12.5px; color: var(--muted); }
   .note b { color: var(--ink); display: block; margin-bottom: 3px; font-size: 13px; }
@@ -186,11 +184,7 @@
       <a class="btn btn-p" href="#packages">View packages</a>
       <a class="btn btn-s" href="mock/login/index.html">Try the live demo</a>
     </div>
-    <div class="price-chip">
-      <span class="pv">Rp85,000,000</span>
-      <span class="pl">Implementation</span>
-    </div>
-    <p class="hero-meta">Prepared by Yoga Wigardo · 31 August 2026 · Valid 30 days · yoga@temanbizz.digital · +62 812-8088-0228</p>
+    <p class="hero-meta">Prepared by Yoga Wigardo · 1 September 2026 · Valid 30 days · yoga@temanbizz.digital · +62 812-8088-0228</p>
   </div>
 </header>
 
@@ -309,7 +303,7 @@
     <p class="sub">Commercial detail for each package, followed by optional additional services.</p>
 
     <div class="subblock">
-      <h3>Build Your Own VDR</h3>
+      <h3>Package A - Build Your Own VDR</h3>
       <table>
         <thead>
           <tr><th>Commercial Component</th><th class="fee">Price</th></tr>
@@ -323,18 +317,19 @@
     </div>
 
     <div class="subblock">
-      <h3>Implementation Using Papermark</h3>
+      <h3>Package B - Implementation Using Papermark</h3>
       <table>
         <thead>
-          <tr><th>Commercial Component</th><th class="fee">Price</th></tr>
+          <tr><th>Commercial Component</th><th class="fee">Year 1</th></tr>
         </thead>
         <tbody>
-          <tr><td>VDR Deployment &amp; Configuration</td><td class="fee">Rp18,000,000</td></tr>
-          <tr><td>Managed VDR Service — 12 Months</td><td class="fee">Rp42,000,000</td></tr>
+          <tr><td>VDR Deployment &amp; Configuration</td><td class="fee">Rp33,600,000</td></tr>
+          <tr class="grp"><td colspan="2">Annual Papermark Pricing</td></tr>
+          <tr><td>Papermark Data Rooms Annual Subscription</td><td class="fee">Rp26,400,000</td></tr>
           <tr><td><b>Total Contract Value — Year 1</b></td><td class="fee"><b>Rp60,000,000</b></td></tr>
         </tbody>
       </table>
-      <p class="inc-note">No monthly cloud subscription. The managed VDR service covers the full 12-month period.</p>
+      <p class="inc-note">No monthly cloud subscription is billed separately; the annual Papermark pricing covers the full 12-month period.</p>
     </div>
 
     <div class="subblock">
@@ -352,6 +347,7 @@
           <tr><td>Additional Consulting &amp; Customization</td><td class="fee">Rp900,000 / man-hour</td></tr>
         </tbody>
       </table>
+      <p class="inc-note">Storage add-ons apply to the Build Your Own VDR package only. Papermark data rooms operate under the managed VDR service.</p>
       <div class="note">
         <b>For Additional Consulting &amp; Customization</b>
         Applicable to requirements outside the agreed implementation scope. Upon receiving a request, we will review the requirement and provide an estimated total man-hour effort for confirmation before the work commences. Any material change to the estimated effort will be communicated and agreed prior to proceeding.
@@ -420,7 +416,7 @@
   <div class="wrap">
     <div class="sl">08 · Contact</div>
     <h2>Prepared by Yoga Wigardo</h2>
-    <p class="sub">Proposal valid for 30 days from 31 August 2026.</p>
+    <p class="sub">Proposal valid for 30 days from 1 September 2026.</p>
     <div class="contact">
       <div class="cc">
         <div class="l">Email</div>
