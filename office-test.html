@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Office File Viewer · Test Page</title>
+<style>
+  :root {
+    --ink: #16202e; --muted: #5b6779; --faint: #8a94a4;
+    --accent: #1f4fd8; --accent-dark: #1a43b8; --accent-soft: #e8eefc;
+    --border: #dfe5ec; --bg: #f6f8fa; --danger: #d64545; --danger-soft: #fdeaea;
+    --good: #157f3d; --good-soft: #e6f5eb;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); color: var(--ink); background: var(--bg); font-size: 14px; line-height: 1.5; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+  .topbar { background: #fff; border-bottom: 1px solid var(--border); }
+  .topbar .in { max-width: 960px; margin: 0 auto; padding: 0 20px; height: 56px; display: flex; align-items: center; gap: 10px; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; }
+  .topbar h1 { font-size: 15px; }
+  .topbar .sub { font-size: 12px; color: var(--faint); }
+  .topbar .sp { flex: 1; }
+  .pill { font-size: 11.5px; font-weight: 650; border-radius: 999px; padding: 4px 12px; }
+  .pill.ok { background: var(--good-soft); color: var(--good); }
+  .pill.bad { background: var(--danger-soft); color: var(--danger); }
+  .pill.off { background: #eef1f5; color: var(--muted); }
+
+  .hint { color: var(--muted); font-size: 12.5px; margin: 14px 0 18px; max-width: 640px; }
+
+  .dropzone {
+    border: 2px dashed #c4cedb; border-radius: 14px; background: #fff;
+    padding: 42px 24px; text-align: center; cursor: pointer; transition: border-color .12s ease, background .12s ease;
+  }
+  .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: var(--accent-soft); }
+  .dropzone .dz-ic { width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 12px; background: var(--accent-soft); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; }
+  .dropzone .dz-ic svg { width: 22px; height: 22px; }
+  .dropzone h2 { font-size: 16px; margin-bottom: 4px; }
+  .dropzone p { color: var(--muted); font-size: 12.5px; }
+  .dropzone .formats { margin-top: 12px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .dropzone .formats span { font-size: 11px; font-weight: 650; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 2.5px 10px; background: #fff; }
+
+  .bar { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .samples { display: flex; gap: 8px; flex-wrap: wrap; }
+  .samples button { font: 600 12px var(--font); color: var(--accent-dark); background: #fff; border: 1px solid #c4cedb; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  .samples button:hover { background: var(--accent-soft); border-color: var(--accent); }
+  .fileinfo { font-size: 12px; color: var(--faint); }
+
+  .status { margin-top: 18px; border-radius: 10px; padding: 12px 16px; font-size: 12.5px; display: none; }
+  .status.busy { display: block; background: var(--accent-soft); color: var(--accent-dark); }
+  .status.err { display: block; background: var(--danger-soft); color: var(--danger); }
+
+  .result { margin-top: 18px; }
+
+  /* docx */
+  .docpage { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 48px 56px; font-size: 14.5px; line-height: 1.7; color: #26303d; }
+  .docpage h1 { font-size: 22px; margin: 18px 0 8px; } .docpage h2 { font-size: 17px; margin: 16px 0 6px; } .docpage h3 { font-size: 15px; margin: 14px 0 5px; }
+  .docpage p { margin: 8px 0; }
+  .docpage ul, .docpage ol { margin: 8px 0; padding-left: 24px; }
+  .docpage img { max-width: 100%; }
+  .docpage table { border-collapse: collapse; margin: 10px 0; }
+  .docpage td, .docpage th { border: 1px solid var(--border); padding: 6px 10px; }
+
+  /* xlsx */
+  .sheetwrap { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .tabs { display: flex; padding: 0 10px; background: var(--bg); border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .tabs span { padding: 9px 16px; font-size: 12.5px; color: var(--muted); cursor: pointer; border-right: 1px solid var(--border); white-space: nowrap; }
+  .tabs span.active { background: #fff; color: var(--accent); font-weight: 650; border-top: 2px solid var(--accent); margin-top: -1px; }
+  .sheet-scroll { overflow: auto; max-height: 70vh; }
+  table.grid { border-collapse: collapse; font-size: 12.5px; }
+  table.grid td, table.grid th { border: 1px solid #e3e8ef; padding: 4px 12px; white-space: nowrap; }
+  table.grid th { background: #f1f5f9; font-weight: 650; }
+
+  /* pptx */
+  .slides { display: grid; gap: 14px; }
+  .slide { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px 26px; }
+  .slide .sn { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .slide p { font-size: 14px; margin: 5px 0; color: #26303d; }
+  .slide ul { padding-left: 22px; } .slide li { margin: 3px 0; }
+
+  .meta-note { margin-top: 10px; font-size: 11.5px; color: var(--faint); }
+  .foot { margin-top: 26px; font-size: 11.5px; color: var(--faint); border-top: 1px solid var(--border); padding-top: 12px; }
+
+  /* docx-preview page framing */
+  .docx-wrapper { background: #e9edf2; padding: 24px 0; }
+  .docx-wrapper > section.docx {
+    margin: 0 auto 18px !important;
+    box-shadow: 0 2px 10px rgba(22, 32, 46, .14);
+    border-radius: 2px;
+  }
+
+  /* converted PDF pane */
+  .pdfpane { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #525659; }
+  .pdfpane object, .pdfpane embed { width: 100%; height: 78vh; border: none; display: block; background: #fff; }
+  .pdfbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; background: #fff; border-bottom: 1px solid var(--border); padding: 10px 14px; font-size: 12.5px; color: var(--muted); }
+  .pdfbar a { font-weight: 650; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <span class="mark">SV</span>
+    <div>
+      <h1>Office File Viewer</h1>
+      <div class="sub">Testing utility · not part of the mock demo</div>
+    </div>
+    <div class="sp"></div>
+    <span class="pill off" id="pdf-pill">PDF converter: checking…</span>
+    <span class="pill" id="lib-pill">Checking libraries…</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="hint">Upload a Word, Excel, or PowerPoint file and preview it directly in the browser. DOCX renders as a formatted document, XLSX as a spreadsheet with sheet tabs, PPTX as extracted slide text. Everything runs locally in your browser, nothing is uploaded anywhere.</p>
+
+  <div class="dropzone" id="dropzone">
+    <div class="dz-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+    <h2>Drop a file here, or click to browse</h2>
+    <p>Files are processed locally and never leave your machine</p>
+    <div class="formats"><span>DOCX</span><span>XLSX</span><span>PPTX</span><span>CSV</span></div>
+  </div>
+  <input type="file" id="file-input" accept=".docx,.xlsx,.pptx,.csv" hidden>
+
+  <div class="bar">
+    <div class="samples" id="samples">
+      <button type="button" data-sample="docx">Try sample DOCX</button>
+      <button type="button" data-sample="xlsx">Try sample XLSX</button>
+    </div>
+    <span class="fileinfo" id="fileinfo"></span>
+  </div>
+
+  <div class="status" id="status"></div>
+  <div class="result" id="result"></div>
+
+  <p class="foot">Powered by mammoth.js (DOCX), SheetJS (XLSX/CSV), and JSZip (PPTX), loaded from CDN. Legacy binary formats (.doc, .xls, .ppt) are not supported. Sample buttons require this page to be served over http (for example the local dev server).</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.4.0/dist/docx-preview.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var dropzone = document.getElementById('dropzone');
+  var fileInput = document.getElementById('file-input');
+  var statusEl = document.getElementById('status');
+  var result = document.getElementById('result');
+  var fileinfo = document.getElementById('fileinfo');
+  var pill = document.getElementById('lib-pill');
+
+  function libCheck() {
+    var ok = !!(window.mammoth && window.docx && window.XLSX && window.ExcelJS && window.JSZip);
+    pill.textContent = ok ? 'Libraries loaded' : 'Library load failed';
+    pill.className = 'pill ' + (ok ? 'ok' : 'bad');
+    return ok;
+  }
+  window.addEventListener('load', libCheck);
+  window.addEventListener('load', checkConverter);
+  libCheck();
+  checkConverter();
+
+  function setStatus(msg, kind) {
+    statusEl.className = 'status' + (kind ? ' ' + kind : '');
+    statusEl.textContent = msg || '';
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  function decodeEntities(s) {
+    var t = document.createElement('textarea');
+    t.innerHTML = s;
+    return t.value;
+  }
+  function fmtSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(0) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+  }
+
+  /* ---------- upload wiring ---------- */
+  dropzone.addEventListener('click', function () { fileInput.click(); });
+  fileInput.addEventListener('change', function () {
+    if (fileInput.files[0]) handleFile(fileInput.files[0]);
+    fileInput.value = '';
+  });
+  ['dragover', 'dragenter'].forEach(function (ev) {
+    dropzone.addEventListener(ev, function (e) { e.preventDefault(); dropzone.classList.add('drag'); });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    dropzone.addEventListener(ev, function (e) { e.preventDefault(); dropzone.classList.remove('drag'); });
+  });
+  dropzone.addEventListener('drop', function (e) {
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  document.querySelectorAll('#samples button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var map = {
+        docx: { path: 'mock/viewer/assets/board-meeting-notes.docx', name: 'board-meeting-notes.docx' },
+        xlsx: { path: 'mock/viewer/assets/cap-table.xlsx', name: 'cap-table.xlsx' }
+      };
+      var s = map[b.dataset.sample];
+      if (!s) return;
+      setStatus('Loading sample…', 'busy');
+      fetch(s.path).then(function (r) {
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.arrayBuffer();
+      }).then(function (buf) {
+        fileinfo.textContent = s.name + ' · ' + fmtSize(buf.byteLength) + ' · sample';
+        route(s.name, buf);
+      }).catch(function () {
+        setStatus('Sample files only load when this page is served over http, for example: python3 -m http.server 8765 — then open http://localhost:8765/office-test.html', 'err');
+      });
+    });
+  });
+
+  function handleFile(file) {
+    fileinfo.textContent = file.name + ' · ' + fmtSize(file.size);
+    setStatus('Reading ' + file.name + '…', 'busy');
+    result.innerHTML = '';
+    var reader = new FileReader();
+    reader.onload = function () { route(file.name, reader.result); };
+    reader.onerror = function () { setStatus('Could not read the file.', 'err'); };
+    reader.readAsArrayBuffer(file);
+  }
+
+  /* ---------- PDF converter service (tools/convert-server.py) ---------- */
+  var PDF_SERVICE = 'http://localhost:8767';
+  var PDFABLE = { docx: 1, xlsx: 1, pptx: 1, doc: 1, xls: 1, ppt: 1, odt: 1, ods: 1, odp: 1, rtf: 1 };
+  var pdfReady = false;
+  var pdfPill = document.getElementById('pdf-pill');
+  var currentPdfUrl = null;
+
+  function checkConverter() {
+    if (location.protocol === 'file:') {
+      pdfPill.textContent = 'PDF converter: needs http';
+      pdfPill.className = 'pill off';
+      return;
+    }
+    fetch(PDF_SERVICE + '/health').then(function (r) { return r.json(); }).then(function (j) {
+      pdfReady = !!j.ok;
+      pdfPill.textContent = pdfReady ? 'PDF converter: ready' : 'PDF converter: unavailable';
+      pdfPill.className = 'pill ' + (pdfReady ? 'ok' : 'off');
+    }).catch(function () {
+      pdfReady = false;
+      pdfPill.textContent = 'PDF converter: offline';
+      pdfPill.className = 'pill off';
+    });
+  }
+
+  function renderPdfPane(name, blob) {
+    if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
+    currentPdfUrl = URL.createObjectURL(blob);
+    result.innerHTML =
+      '<div class="pdfpane">' +
+        '<div class="pdfbar"><span>' + esc(name) + ' · converted to PDF · ' + fmtSize(blob.size) + '</span>' +
+          '<a href="' + currentPdfUrl + '" target="_blank" rel="noopener">Open in new tab</a></div>' +
+        '<object data="' + currentPdfUrl + '" type="application/pdf">' +
+          '<embed src="' + currentPdfUrl + '" type="application/pdf">' +
+        '</object>' +
+      '</div>' +
+      '<p class="meta-note">Pixel-accurate render via LibreOffice · conversion happens locally, nothing leaves your machine</p>';
+    setStatus('');
+  }
+
+  /* ---------- routing ---------- */
+  function route(name, buf) {
+    var ext = (name.split('.').pop() || '').toLowerCase();
+
+    if (pdfReady && PDFABLE[ext]) {
+      setStatus('Converting to PDF with LibreOffice…', 'busy');
+      fetch(PDF_SERVICE + '/convert?name=' + encodeURIComponent(name), { method: 'POST', body: buf })
+        .then(function (r) {
+          if (!r.ok) throw r;
+          return r.blob();
+        })
+        .then(function (blob) { renderPdfPane(name, blob); })
+        .catch(function (e) {
+          var msg = e && e.status ? 'service returned ' + e.status : (e && e.message) || 'unreachable';
+          setStatus('PDF conversion unavailable (' + esc(msg) + ') · falling back to in-browser renderer', 'err');
+          setTimeout(function () { setStatus(''); }, 4000);
+          routeClient(name, buf, ext);
+        });
+      return;
+    }
+    routeClient(name, buf, ext);
+  }
+
+  function routeClient(name, buf, ext) {
+    if (!libCheck()) { setStatus('Libraries failed to load, check your internet connection and reload.', 'err'); return; }
+    try {
+      if (ext === 'docx') return renderDocx(buf);
+      if (ext === 'xlsx' || ext === 'xls' || ext === 'csv') return renderXlsx(buf, ext === 'xls' ? 'xlsx' : ext);
+      if (ext === 'pptx') return renderPptx(buf);
+      if (ext === 'doc' || ext === 'ppt' || ext === 'xls') {
+        setStatus('Legacy .' + ext + ' needs the PDF converter: start tools/convert-server.py and serve this page over http.', 'err');
+        return;
+      }
+      setStatus('Unsupported format .' + esc(ext) + '. Supported: .docx, .xlsx, .pptx, .csv (plus legacy formats via the PDF converter).', 'err');
+    } catch (e) {
+      setStatus('Could not process this file: ' + esc(e.message), 'err');
+    }
+  }
+
+  /* ---------- DOCX via docx-preview (high fidelity), mammoth as fallback ---------- */
+  function renderDocx(buf) {
+    setStatus('Rendering DOCX…', 'busy');
+    result.innerHTML = '';
+    var host = document.createElement('div');
+    result.appendChild(host);
+    window.docx.renderAsync(buf, host, null, {
+      inWrapper: true,
+      ignoreWidth: false,
+      ignoreHeight: false,
+      renderHeaders: true,
+      renderFooters: true,
+      useBase64URL: true
+    }).then(function () {
+      result.insertAdjacentHTML('beforeend',
+        '<p class="meta-note">High-fidelity render by docx-preview · page sections, styles, headers and footers preserved</p>');
+      setStatus('');
+    }).catch(function (e) {
+      mammoth.convertToHtml({ arrayBuffer: buf }).then(function (r) {
+        result.innerHTML = '<div class="docpage">' + r.value + '</div>' +
+          '<p class="meta-note">Fallback content render by mammoth.js (' + esc(e.message) + ')</p>';
+        setStatus('');
+      });
+    });
+  }
+
+  /* ---------- XLSX / CSV: styled via exceljs, plain via SheetJS ---------- */
+  function renderXlsx(buf, ext) {
+    if (ext === 'csv') return renderXlsxPlain(buf, ext, null);
+    setStatus('Parsing XLSX…', 'busy');
+    renderXlsxStyled(buf).catch(function (e) {
+      renderXlsxPlain(buf, ext, e.message);
+    });
+  }
+
+  function renderXlsxPlain(buf, ext, why) {
+    var wb = XLSX.read(buf, { type: 'array' });
+    var names = wb.SheetNames;
+    if (!names.length) { setStatus('No sheets found in this workbook.', 'err'); return; }
+
+    var tabs = names.map(function (n, i) {
+      return '<span data-i="' + i + '" class="' + (i === 0 ? 'active' : '') + '">' + esc(n) + '</span>';
+    }).join('');
+    result.innerHTML = '<div class="sheetwrap"><div class="tabs" id="x-tabs">' + tabs + '</div>' +
+      '<div class="sheet-scroll" id="x-panel"></div></div>' +
+      '<p class="meta-note">Plain grid by SheetJS' + (ext === 'csv' ? ' (CSV)' : '') +
+      (why ? ' · styled renderer fell back: ' + esc(why) : '') + '</p>';
+
+    function show(i) {
+      document.getElementById('x-panel').innerHTML = XLSX.utils.sheet_to_html(wb.Sheets[names[i]], {});
+    }
+    document.getElementById('x-tabs').addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.tagName !== 'SPAN') return;
+      document.querySelectorAll('#x-tabs span').forEach(function (s) { s.classList.remove('active'); });
+      t.classList.add('active');
+      show(parseInt(t.dataset.i, 10));
+    });
+    show(0);
+    setStatus('');
+  }
+
+  function argbToCss(a) {
+    if (!a) return null;
+    var s = String(a);
+    if (s.length === 8) s = s.slice(2);
+    return /^[0-9A-Fa-f]{6}$/.test(s) ? '#' + s : null;
+  }
+
+  function parseRef(ref) {
+    var m = /^([A-Z]+)(\d+)$/.exec(ref);
+    if (!m) return null;
+    var col = 0;
+    for (var i = 0; i < m[1].length; i++) col = col * 26 + (m[1].charCodeAt(i) - 64);
+    return { r: parseInt(m[2], 10), c: col };
+  }
+
+  function cellStyle(cell) {
+    var css = [];
+    var f = cell.font || {};
+    if (f.bold) css.push('font-weight:700');
+    if (f.italic) css.push('font-style:italic');
+    if (f.underline) css.push('text-decoration:underline');
+    if (f.size) css.push('font-size:' + Math.max(9, Math.round(f.size * 1.333)) + 'px');
+    var fc = argbToCss(f.color && f.color.argb);
+    if (fc && fc !== '#000000') css.push('color:' + fc);
+    var fill = cell.fill;
+    if (fill && fill.type === 'pattern' && fill.pattern === 'solid' && fill.fgColor) {
+      var bg = argbToCss(fill.fgColor.argb);
+      if (bg) css.push('background:' + bg);
+    }
+    var b = cell.border || {};
+    ['top', 'bottom', 'left', 'right'].forEach(function (side) {
+      var bd = b[side];
+      if (bd && bd.style && bd.style !== 'none') {
+        var w = bd.style === 'medium' ? 2 : bd.style === 'thick' ? 3 : 1;
+        var dashed = bd.style.indexOf('dash') > -1 || bd.style.indexOf('dot') > -1;
+        var bc = argbToCss(bd.color && bd.color.argb) || '#dfe5ec';
+        css.push('border-' + side + ':' + w + 'px ' + (dashed ? 'dashed' : 'solid') + ' ' + bc);
+      }
+    });
+    var al = cell.alignment || {};
+    if (al.horizontal) css.push('text-align:' + al.horizontal);
+    css.push('vertical-align:' + (al.vertical || 'middle'));
+    return css.join(';');
+  }
+
+  function cellText(cell) {
+    var v = cell.value;
+    if (v == null) return '';
+    if (v instanceof Date) return v.toLocaleDateString();
+    if (typeof v === 'object') {
+      if (v.richText) return v.richText.map(function (t) { return t.text; }).join('');
+      if (v.hyperlink) return String(v.text || v.hyperlink);
+      if (v.error) return '#' + v.error;
+      return String(v.result != null ? v.result : '');
+    }
+    return String(v);
+  }
+
+  function renderXlsxStyled(buf) {
+    var wb = new ExcelJS.Workbook();
+    return wb.xlsx.load(buf).then(function (workbook) {
+      if (!workbook.worksheets.length) throw new Error('no sheets');
+      var MAXR = 500, MAXC = 60;
+
+      function sheetHtml(ws) {
+        var merges = [];
+        (ws.model.merges || []).forEach(function (m) {
+          var p = m.split(':'), a = parseRef(p[0]), b = parseRef(p[1]);
+          if (a && b) merges.push({ a: a, b: b });
+        });
+        var covered = {}, anchor = {};
+        merges.forEach(function (mg) {
+          anchor[mg.a.r + ',' + mg.a.c] = { rs: mg.b.r - mg.a.r + 1, cs: mg.b.c - mg.a.c + 1 };
+          for (var r = mg.a.r; r <= mg.b.r; r++)
+            for (var c = mg.a.c; c <= mg.b.c; c++)
+              if (r !== mg.a.r || c !== mg.a.c) covered[r + ',' + c] = true;
+        });
+
+        var rowsN = Math.min(ws.actualRowCount || 1, MAXR);
+        var colsN = Math.min(ws.columnCount || 1, MAXC);
+
+        var cg = '<colgroup>';
+        for (var c = 1; c <= colsN; c++) {
+          var col = ws.getColumn(c);
+          var w = col && col.width ? Math.max(30, Math.round(col.width * 7)) : 90;
+          cg += '<col style="width:' + w + 'px">';
+        }
+        cg += '</colgroup>';
+
+        var body = '';
+        for (var r = 1; r <= rowsN; r++) {
+          body += '<tr>';
+          for (var cc = 1; cc <= colsN; cc++) {
+            if (covered[r + ',' + cc]) continue;
+            var cell = ws.getRow(r).getCell(cc);
+            var span = anchor[r + ',' + cc];
+            body += '<td' + (span ? ' rowspan="' + span.rs + '" colspan="' + span.cs + '"' : '') +
+              ' style="' + cellStyle(cell) + '">' + esc(cellText(cell)) + '</td>';
+          }
+          body += '</tr>';
+        }
+        return '<table class="grid">' + cg + body + '</table>';
+      }
+
+      var tabs = workbook.worksheets.map(function (ws, i) {
+        return '<span data-i="' + i + '"' + (i === 0 ? ' class="active"' : '') + '>' + esc(ws.name) + '</span>';
+      }).join('');
+      result.innerHTML = '<div class="sheetwrap"><div class="tabs" id="x-tabs">' + tabs + '</div>' +
+        '<div class="sheet-scroll" id="x-panel"></div></div>' +
+        '<p class="meta-note">Styled render by exceljs · cell fills, fonts, borders, widths and merges preserved</p>';
+
+      function show(i) {
+        document.getElementById('x-panel').innerHTML = sheetHtml(workbook.worksheets[i]);
+      }
+      document.getElementById('x-tabs').addEventListener('click', function (e) {
+        var t = e.target;
+        if (t.tagName !== 'SPAN') return;
+        document.querySelectorAll('#x-tabs span').forEach(function (s) { s.classList.remove('active'); });
+        t.classList.add('active');
+        show(parseInt(t.dataset.i, 10));
+      });
+      show(0);
+      setStatus('');
+    });
+  }
+
+  /* ---------- PPTX via JSZip (text extraction) ---------- */
+  function renderPptx(buf) {
+    setStatus('Extracting PPTX slides…', 'busy');
+    JSZip.loadAsync(buf).then(function (zip) {
+      var slidePaths = [];
+      zip.forEach(function (path) {
+        var m = path.match(/^ppt\/slides\/slide(\d+)\.xml$/);
+        if (m) slidePaths.push({ num: parseInt(m[1], 10), path: path });
+      });
+      slidePaths.sort(function (a, b) { return a.num - b.num; });
+      if (!slidePaths.length) { setStatus('No slides found in this PPTX.', 'err'); return; }
+
+      var done = 0, html = '';
+      slidePaths.forEach(function (s) {
+        zip.file(s.path).async('string').then(function (xml) {
+          var paras = xml.match(/<a:p>([\s\S]*?)<\/a:p>/g) || [];
+          var lines = paras.map(function (p) {
+            var runs = p.match(/<a:t>([\s\S]*?)<\/a:t>/g) || [];
+            return runs.map(function (t) {
+              return decodeEntities(t.replace(/<\/?a:t>/g, ''));
+            }).join('');
+          }).filter(function (t) { return t.trim() !== ''; });
+
+          html += '<div class="slide"><div class="sn">Slide ' + s.num + '</div>' +
+            lines.map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('') + '</div>';
+
+          done++;
+          if (done === slidePaths.length) {
+            result.innerHTML = '<div class="slides">' + html + '</div>' +
+              '<p class="meta-note">Text extraction preview via JSZip · ' + slidePaths.length +
+              ' slides · layouts, images, and formatting are not rendered</p>';
+            setStatus('');
+          }
+        });
+      });
+    }).catch(function (e) {
+      setStatus('PPTX extraction failed: ' + esc(e.message), 'err');
+    });
+  }
+
+  /* auto-load a sample via ?sample=docx|xlsx (http only) */
+  var want = new URLSearchParams(location.search).get('sample');
+  var btn = want && document.querySelector('#samples button[data-sample="' + want + '"]');
+  if (btn) window.addEventListener('load', function () { btn.click(); });
+})();
+</script>
+
+</body>
+</html>

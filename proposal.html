@@ -77,18 +77,6 @@
   .strip { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
   .strip span { font-size: 12px; font-weight: 550; color: var(--muted); border: 1px solid var(--border); background: #fff; border-radius: 999px; padding: 5px 13px; }
 
-  /* ---------- package band ---------- */
-  .band { display: flex; border-radius: 14px; overflow: hidden; border: 1px solid var(--accent); background: #fff; }
-  .band .price { flex: none; width: 270px; background: var(--accent); color: #fff; padding: 26px; }
-  .band .price .pl { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
-  .band .price .pv { font-size: 30px; font-weight: 750; margin-top: 6px; letter-spacing: -.01em; }
-  .band .price .pm { font-size: 13px; opacity: .85; margin-top: 2px; }
-  .band .inc { flex: 1; background: var(--accent-soft); padding: 22px 26px; }
-  .band .inc .t { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 12px; }
-  .band .inc ul { list-style: none; columns: 3; column-gap: 22px; font-size: 13px; }
-  .band .inc li { break-inside: avoid; padding-left: 15px; position: relative; margin-bottom: 6px; }
-  .band .inc li::before { content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); }
-
   /* ---------- pricing cards ---------- */
   .tiers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: stretch; }
   .tier { border: 1px solid var(--border); border-radius: 14px; background: #fff; padding: 24px; display: flex; flex-direction: column; }
@@ -260,20 +248,17 @@
   </div>
 </section>
 
-<!-- ============ RECOMMENDED PACKAGE ============ -->
+<!-- ============ PACKAGES ============ -->
 <section id="package">
   <div class="wrap">
-    <div class="sl">03 · Recommended Package</div>
-    <h2>Professional VDR</h2>
-    <p class="sub">One predictable investment. No mandatory per-viewer licensing within the included capacity.</p>
-    <div class="band">
-      <div class="price">
-        <div class="pl">Year 1</div>
-        <div class="pv">Rp85,000,000</div>
-        <div class="pm">excludes monthly cloud subscription</div>
-      </div>
-      <div class="inc">
-        <div class="t">Everything included</div>
+    <div class="sl">03 · Packages</div>
+    <h2>Two paths to a secure data room</h2>
+    <p class="sub">Build your own VDR platform on Google Cloud, or implement rapidly on Papermark data rooms.</p>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tn">Build Your Own VDR</div>
+        <div class="tp">Rp85,000,000</div>
+        <div class="tm">Implementation · excludes monthly cloud subscription</div>
         <ul>
           <li>3 admin accounts</li>
           <li>External viewers, no per-seat fee (fair use)</li>
@@ -291,6 +276,26 @@
           <li>UAT, guidelines &amp; onboarding</li>
           <li>3 months post-launch support</li>
         </ul>
+        <a class="btn btn-p" href="mailto:yoga@temanbizz.digital?subject=VDR%20Package%20-%20Build%20Your%20Own">Select Build Your Own VDR</a>
+      </div>
+      <div class="tier">
+        <div class="tn">Implement with Papermark Data Rooms</div>
+        <div class="tp">Rp60,000,000</div>
+        <div class="tm">Implementation · managed service, no monthly cloud subscription</div>
+        <ul>
+          <li>3 team members included</li>
+          <li>Unlimited data rooms</li>
+          <li>Secure bulk import</li>
+          <li>Custom domain for data rooms</li>
+          <li>Data room branding</li>
+          <li>Data room analytics</li>
+          <li>NDA agreements</li>
+          <li>Dynamic watermark</li>
+          <li>Granular file level permissions</li>
+          <li>Data room groups</li>
+          <li>Assign team members</li>
+        </ul>
+        <a class="btn btn-s" href="mailto:yoga@temanbizz.digital?subject=VDR%20Package%20-%20Papermark">Select Papermark Implementation</a>
       </div>
     </div>
   </div>
@@ -299,52 +304,37 @@
 <!-- ============ PACKAGES ============ -->
 <section id="packages" class="alt">
   <div class="wrap">
-    <div class="sl">04 · Package Options</div>
-    <h2>Two packages, one commercial model</h2>
-    <p class="sub">Both packages include production deployment on Google Cloud. Managed Cloud &amp; Platform Operations are provided under the applicable monthly plan.</p>
-    <div class="tiers">
-      <div class="tier pro">
-        <span class="rec">Recommended</span>
-        <div class="tn">Professional</div>
-        <div class="tp">Rp85,000,000</div>
-        <div class="tm">Year 1</div>
-        <ul>
-          <li>3 admin accounts</li>
-          <li>External viewers, no per-seat fee (fair use)</li>
-          <li>100 GB secure storage · multiple data rooms</li>
-          <li>Basic Q&amp;A module</li>
-          <li>Custom branding</li>
-          <li>3 months post-launch support</li>
-        </ul>
-        <a class="btn btn-p" href="mailto:yoga@temanbizz.digital?subject=VDR%20Professional%20Package">Select Professional</a>
-      </div>
-      <div class="tier">
-        <div class="tn">Enterprise</div>
-        <div class="tp">Rp120,000,000</div>
-        <div class="tm">Year 1</div>
-        <ul>
-          <li>5 admin accounts</li>
-          <li>External viewers, no per-seat fee (fair use)</li>
-          <li>500 GB secure storage</li>
-          <li>Advanced Q&amp;A &amp; branding</li>
-          <li>6 months priority support</li>
-        </ul>
-        <a class="btn btn-s" href="mailto:yoga@temanbizz.digital?subject=VDR%20Enterprise%20Package">Enquire</a>
-      </div>
+    <div class="sl">04 · Package Details</div>
+    <h2>Package details</h2>
+    <p class="sub">Commercial detail for each package, followed by optional additional services.</p>
+
+    <div class="subblock">
+      <h3>Build Your Own VDR</h3>
+      <table>
+        <thead>
+          <tr><th>Commercial Component</th><th class="fee">Price</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Implementation</td><td class="fee">Rp85,000,000</td></tr>
+          <tr><td>Monthly Cloud Subscription</td><td class="fee">Rp3,500,000 / month</td></tr>
+        </tbody>
+      </table>
+      <p class="inc-note">The monthly cloud subscription includes managed cloud hosting, database, secure document storage, monitoring, backup, SSL, and standard platform operations within the included capacity.</p>
     </div>
 
     <div class="subblock">
-      <h3>Monthly Cloud Subscription</h3>
+      <h3>Implementation Using Papermark</h3>
       <table>
         <thead>
-          <tr><th>Package</th><th class="fee">Monthly Fee</th></tr>
+          <tr><th>Commercial Component</th><th class="fee">Price</th></tr>
         </thead>
         <tbody>
-          <tr><td>Professional</td><td class="fee">Rp3,500,000 / month</td></tr>
-          <tr><td>Enterprise</td><td class="fee">Rp5,500,000 / month</td></tr>
+          <tr><td>VDR Deployment &amp; Configuration</td><td class="fee">Rp18,000,000</td></tr>
+          <tr><td>Managed VDR Service — 12 Months</td><td class="fee">Rp42,000,000</td></tr>
+          <tr><td><b>Total Contract Value — Year 1</b></td><td class="fee"><b>Rp60,000,000</b></td></tr>
         </tbody>
       </table>
-      <p class="inc-note">Includes managed cloud hosting, database, secure document storage, monitoring, backup, SSL, and standard platform operations within the included capacity.</p>
+      <p class="inc-note">No monthly cloud subscription. The managed VDR service covers the full 12-month period.</p>
     </div>
 
     <div class="subblock">
@@ -410,8 +400,8 @@
     <div class="steps">
       <div class="step"><span class="n">01</span><h3>Confirm package</h3><p>Package selection and project scope agreement.</p></div>
       <div class="step"><span class="n">02</span><h3>Kickoff</h3><p>Configuration, branding, and data room setup.</p></div>
-      <div class="step"><span class="n">03</span><h3>UAT</h3><p>User acceptance testing and guidelines. <b>By 2 September 2026</b></p></div>
-      <div class="step"><span class="n">04</span><h3>Go live</h3><p>Launch with post-launch support. <b>By 3 September 2026</b></p></div>
+      <div class="step"><span class="n">03</span><h3>UAT</h3><p>User acceptance testing and guidelines.</p></div>
+      <div class="step"><span class="n">04</span><h3>Go live</h3><p>Launch with post-launch support.</p></div>
     </div>
     <div class="cta-band">
       <div>
